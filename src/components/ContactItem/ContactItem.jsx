@@ -1,11 +1,11 @@
 import { useDispatch } from 'react-redux';
-import { deleteContact } from 'redux/operations';
+import { deleteContact } from 'redux/contacts/operations';
 
 import css from './ContactItem.module.css';
 import MainButtonStyle from 'components/Common/styled-components/MainButton/MainButton';
 
 const ContactItem = ({ contact }) => {
-  const { id, name, phone } = contact;
+  const { id, name, number } = contact;
 
   const dispatch = useDispatch();
 
@@ -16,7 +16,7 @@ const ContactItem = ({ contact }) => {
   return (
     <div className={css.listWrapper}>
       <span className={css.contactItem}>
-        {name}: {phone}
+        {name}: {number}
       </span>
       <MainButtonStyle onClick={onDelete} type="button">
         Delete

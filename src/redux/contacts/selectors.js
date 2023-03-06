@@ -17,7 +17,7 @@ export const selectVisibleContacts = createSelector(
     return contacts.filter(contact => {
       return (
         regNormolize(contact.name).includes(regNormolize(filter)) ||
-        regNormolize(contact.phone).includes(regNormolize(filter))
+        regNormolize(contact.number).includes(regNormolize(filter))
       );
     });
   }

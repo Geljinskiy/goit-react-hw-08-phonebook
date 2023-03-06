@@ -2,8 +2,8 @@ import React from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { addContact } from 'redux/operations.js';
-import { selectContacts } from 'redux/selectors';
+import { addContact } from 'redux/contacts/operations.js';
+import { selectContacts } from 'redux/contacts/selectors';
 
 import MainButtonStyle from 'components/Common/styled-components/MainButton';
 import Label from 'components/Common/styled-components/Label';

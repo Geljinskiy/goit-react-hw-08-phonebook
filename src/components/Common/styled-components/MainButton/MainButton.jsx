@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Button } from '@mui/material';
 
 const MainButtonStyle = styled.button`
   max-width: 110px;
@@ -11,9 +12,10 @@ const MainButtonStyle = styled.button`
 
   cursor: pointer;
 
-  &:active{
+  &:active {
     background-color: #3488f7;
   }
 `;
+
 
 export default MainButtonStyle;
