@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectFilter } from 'redux/contacts/selectors';
 import { changeFilter } from 'redux/contacts/filtersSlice';
 
-import Label from 'components/Common/styled-components/Label';
+import TextField from '@mui/material/TextField';
 
 const Filter = () => {
   const dispatch = useDispatch();
@@ -13,10 +13,24 @@ const Filter = () => {
   };
 
   return (
-    <Label>
-      <p>Find contatcts by name</p>
-      <input onInput={onFilter} value={filter} type="text" name="filter" />
-    </Label>
+    <>
+      {/* <Typography component="h2" variant="h1">
+        Your phonebook
+      </Typography> */}
+      <TextField
+        //input sets
+        type="text"
+        name="filter"
+        onChange={onFilter}
+        value={filter}
+        //mui
+        size="small"
+        variant="filled"
+        label="search"
+        margin="none"
+        fullWidth
+      />
+    </>
   );
 };
 

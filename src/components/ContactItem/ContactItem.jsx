@@ -1,11 +1,15 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { deleteContact } from 'redux/contacts/operations';
 
-import css from './ContactItem.module.css';
-import MainButtonStyle from 'components/Common/styled-components/MainButton/MainButton';
+import { selectIsLoading } from 'redux/contacts/selectors';
+
+import Typography from '@mui/material/Typography';
+import Box from '@mui/system/Box';
+import { LoadingButton } from '@mui/lab';
 
 const ContactItem = ({ contact }) => {
   const { id, name, number } = contact;
+  const isLoading = useSelector(selectIsLoading);
 
   const dispatch = useDispatch();
 
@@ -14,14 +18,23 @@ const ContactItem = ({ contact }) => {
   };
 
   return (
-    <div className={css.listWrapper}>
-      <span className={css.contactItem}>
+    <Box
+      sx={{ display: 'flex', justifyContent: 'start', alignItems: 'center' }}
+    >
+      <Typography>
         {name}: {number}
-      </span>
-      <MainButtonStyle onClick={onDelete} type="button">
+      </Typography>
+      <LoadingButton
+        sx={{ marginLeft: 'auto', marginRight: '40px' }}
+        onClick={onDelete}
+        type="button"
+        variant="text"
+        size="small"
+        loading={isLoading}
+      >
         Delete
-      </MainButtonStyle>
-    </div>
+      </LoadingButton>
+    </Box>
   );
 };
 

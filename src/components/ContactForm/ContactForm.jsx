@@ -1,29 +1,23 @@
+import { useFormik } from 'formik';
+
+import { AddingContactSchema } from 'components/validation';
+
 import React from 'react';
-import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { addContact } from 'redux/contacts/operations.js';
-import { selectContacts } from 'redux/contacts/selectors';
+import { selectContacts, selectIsLoading } from 'redux/contacts/selectors';
 
-import MainButtonStyle from 'components/Common/styled-components/MainButton';
-import Label from 'components/Common/styled-components/Label';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import LoadingButton from '@mui/lab/LoadingButton';
+
 import Form from 'components/Common/styled-components/Form';
 
 const ContactForm = () => {
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
-
-  const onInput = ev => {
-    const input = ev.currentTarget;
-    if (input.name === 'name') {
-      setName(input.value);
-    } else if (input.name === 'phone') {
-      setPhone(input.value);
-    }
-  };
+  const isLoading = useSelector(selectIsLoading);
 
   const onAddingContact = ({ name, phone }) => {
     const isExist = contacts.filter(contact => contact.name === name).length;
@@ -36,43 +30,78 @@ const ContactForm = () => {
     dispatch(addContact({ name, phone }));
   };
 
-  const onFormSubmit = ev => {
-    ev.preventDefault();
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      phone: '',
+    },
 
-    onAddingContact({ name, phone });
-    ev.currentTarget.reset();
-    setName('');
-    setPhone('');
-  };
+    validationSchema: AddingContactSchema,
+
+    onSubmit: ({ name, phone }) => {
+      onAddingContact({ name, phone });
+      formik.resetForm();
+    },
+
+    handleSubmit: (values, { setSubmitting }) => {
+      console.log('values :', values);
+    },
+  });
 
   return (
-    <Form onSubmit={onFormSubmit}>
-      <Label>
-        <p>Name</p>
-        <input
-          onChange={onInput}
-          value={name}
+    <>
+      <Form onSubmit={formik.handleSubmit}>
+        <Typography variant="h1">Adding new contacts</Typography>
+
+        <TextField
+          //formik
+          id="name"
           type="text"
           name="name"
-          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+          onChange={formik.handleChange}
+          value={formik.values.name}
+          error={formik.touched.name && formik.errors.name}
+          helperText={formik.touched.name && formik.errors.name}
+          onBlur={formik.handleBlur}
+          //mui
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+          size="small"
+          variant="filled"
+          label="name"
+          margin="normal"
+          fullWidth
           required
         />
-      </Label>
-      <Label>
-        <p>Number</p>
-        <input
-          onChange={onInput}
-          value={phone}
+
+        <TextField
+          //formik
+          id="phone"
           type="tel"
           name="phone"
-          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+          onChange={formik.handleChange}
+          value={formik.values.phone}
+          error={formik.touched.phone && formik.errors.phone}
+          helperText={formik.touched.phone && formik.errors.phone}
+          onBlur={formik.handleBlur}
+          //mui
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+          size="small"
+          variant="filled"
+          label="phone"
+          margin="normal"
+          fullWidth
           required
         />
-      </Label>
-      <MainButtonStyle type="submit">Add to contact</MainButtonStyle>
-    </Form>
+        <LoadingButton
+          variant="contained"
+          disabled={!(formik.dirty && formik.isValid)}
+          type="submit"
+          // loading={isLoading && formik.isValid && formik.dirty}
+        >
+          Add
+        </LoadingButton>
+      </Form>
+    </>
   );
 };
 
