@@ -42,6 +42,7 @@ export const App = () => {
             element={<PrivateRoute component={MainApp} redirectTo="/login" />}
           />
         </Route>
+        <Route path="*" element={<>Not found</>} />
       </Routes>
     </ThemeProvider>
   );
