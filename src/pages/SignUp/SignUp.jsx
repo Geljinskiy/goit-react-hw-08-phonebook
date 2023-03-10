@@ -1,5 +1,4 @@
 import RegistrationForm from 'components/RegistrationForm';
-
 import { SignUpSchema } from 'components/validation';
 import { register } from 'redux/auth/auth-operations';
 

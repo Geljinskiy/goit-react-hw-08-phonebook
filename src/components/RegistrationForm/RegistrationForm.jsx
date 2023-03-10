@@ -1,12 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import { useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-import Form from 'components/Common/styled-components/Form';
 import { Container } from '@mui/system';
 import Typography from '@mui/material/Typography';
 import { LoadingButton } from '@mui/lab';
-import NavigationLink from 'components/Common/styled-components/NavigationLink';
+import { NavLink } from 'react-router-dom';
+
+import Form from 'components/Common/Form';
 import RegistrationField from 'components/RegistrationField';
 
 import authSelectors from 'redux/auth/auth-selectors';
@@ -60,7 +62,7 @@ const RegistrationForm = ({ authOperation, initialVals, validationSchema }) => {
         <Typography
           mb="8px"
           variant="mainLink"
-          component={NavigationLink}
+          component={NavLink}
           to={regDefect.reversePath}
         >
           {regDefect.linkMessage}
@@ -80,3 +82,9 @@ const RegistrationForm = ({ authOperation, initialVals, validationSchema }) => {
 };
 
 export default RegistrationForm;
+
+RegistrationForm.propTypes = {
+  authOperation: PropTypes.func.isRequired,
+  initialVals: PropTypes.object.isRequired,
+  validationSchema: PropTypes.object.isRequired,
+};

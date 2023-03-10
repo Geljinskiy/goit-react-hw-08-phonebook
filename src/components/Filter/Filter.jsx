@@ -14,9 +14,6 @@ const Filter = () => {
 
   return (
     <>
-      {/* <Typography component="h2" variant="h1">
-        Your phonebook
-      </Typography> */}
       <TextField
         //input sets
         type="text"

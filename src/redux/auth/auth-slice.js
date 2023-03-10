@@ -21,45 +21,45 @@ const handleRejected = (state, action) => {
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
-  extraReducers: {
-    [register.pending]: handlePending,
-    [login.pending]: handlePending,
-    [logout.pending]: handlePending,
-    [fetchUser.pending]: handlePending,
+  extraReducers: builder =>
+    builder
+      .addCase(register.pending, handlePending)
+      .addCase(login.pending, handlePending)
+      .addCase(logout.pending, handlePending)
+      .addCase(fetchUser.pending, handlePending)
 
-    [register.rejected]: handleRejected,
-    [login.rejected]: handleRejected,
-    [logout.rejected]: handleRejected,
-    [fetchUser.rejected]: handleRejected,
+      .addCase(register.rejected, handleRejected)
+      .addCase(login.rejected, handleRejected)
+      .addCase(logout.rejected, handleRejected)
+      .addCase(fetchUser.rejected, handleRejected)
 
-    [register.fulfilled](state, action) {
-      state.user = action.payload.user;
-      state.token = action.payload.token;
-      state.isLoggedIn = true;
-      state.isLoading = false;
-    },
-    [login.fulfilled](state, action) {
-      state.user = action.payload.user;
-      state.token = action.payload.token;
-      state.isLoggedIn = true;
-      state.isLoading = false;
-    },
-    [logout.fulfilled](state) {
-      state.user = { name: null, email: null };
-      state.token = null;
-      state.isLoggedIn = false;
-      state.isLoading = false;
-    },
-    [fetchUser.fulfilled](state, action) {
-      state.isLoading = false;
-      console.log('need to change this :', action);
-      if (!action.payload) {
-        return;
-      }
-      state.user = action.payload;
-      state.isLoggedIn = true;
-    },
-  },
+      .addCase(register.fulfilled, (state, action) => {
+        state.user = action.payload.user;
+        state.token = action.payload.token;
+        state.isLoggedIn = true;
+        state.isLoading = false;
+      })
+      .addCase(login.fulfilled, (state, action) => {
+        state.user = action.payload.user;
+        state.token = action.payload.token;
+        state.isLoggedIn = true;
+        state.isLoading = false;
+      })
+      .addCase(logout.fulfilled, state => {
+        state.user = { name: null, email: null };
+        state.token = null;
+        state.isLoggedIn = false;
+        state.isLoading = false;
+      })
+      .addCase(fetchUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        console.log('need to change this :', action);
+        // if (!action.payload) {
+        //   return;
+        // }
+        state.user = action.payload;
+        state.isLoggedIn = true;
+      }),
 });
 
 export const authReducer = authSlice.reducer;

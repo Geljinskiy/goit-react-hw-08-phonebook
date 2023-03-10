@@ -1,15 +1,14 @@
 import React from 'react';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-import { selectError, selectIsLoading } from '../../redux/contacts/selectors';
-import { fetchContacts } from '../../redux/contacts/operations';
-
+import Container from '@mui/system/Container';
+import Box from '@mui/system/Box';
 import ContactList from '../../components/ContactList';
 import ContactForm from '../../components/ContactForm';
 import Filter from '../../components/Filter';
-import Container from '@mui/system/Container';
-import Box from '@mui/system/Box';
+
+import { fetchContacts } from '../../redux/contacts/operations';
 
 const MainApp = () => {
   const dispatch = useDispatch();
@@ -24,7 +23,7 @@ const MainApp = () => {
       <ContactForm />
       <Box
         sx={{
-          border: '1px solid #000000',
+          border: '2px solid rgba(15%,15%,15%,0.6)',
           paddingBottom: '8px',
           borderRadius: '9px',
           marginTop:'50px'

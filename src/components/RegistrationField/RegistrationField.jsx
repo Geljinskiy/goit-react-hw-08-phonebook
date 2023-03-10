@@ -1,7 +1,7 @@
 import TextField from '@mui/material/TextField';
+import PropTypes from 'prop-types';
 
 const RegistrationField = ({ type, formik, name }) => {
-
   return (
     <TextField
       //formik
@@ -16,7 +16,7 @@ const RegistrationField = ({ type, formik, name }) => {
       //mui
       size="small"
       variant="filled"
-      label={name||type}
+      label={name || type}
       margin="normal"
       fullWidth
       required
@@ -25,3 +25,9 @@ const RegistrationField = ({ type, formik, name }) => {
 };
 
 export default RegistrationField;
+
+RegistrationField.propTypes = {
+  type: PropTypes.string.isRequired,
+  formik: PropTypes.object.isRequired,
+  name: PropTypes.string,
+};

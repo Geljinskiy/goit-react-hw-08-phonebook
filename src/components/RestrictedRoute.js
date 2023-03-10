@@ -4,14 +4,12 @@ import PropTypes from 'prop-types';
 
 import authSelectors from 'redux/auth/auth-selectors';
 
-export const PrivateRoute = ({ component: Component, redirectTo = '/' }) => {
+export const RestrictedRoute = ({ component: Component, redirectTo = '/' }) => {
   const isLoggedIn = useSelector(authSelectors.getIsLoggedIn);
-  const shouldRedirect = !isLoggedIn;
-
-  return shouldRedirect ? <Navigate to={redirectTo} /> : <Component />;
+  return isLoggedIn ? <Navigate to={redirectTo} /> : <Component />;
 };
 
-PrivateRoute.propTypes = {
+RestrictedRoute.propTypes = {
   component: PropTypes.elementType.isRequired,
   redirectTo: PropTypes.string,
 };

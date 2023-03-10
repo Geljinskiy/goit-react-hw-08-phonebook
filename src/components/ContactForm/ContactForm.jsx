@@ -1,23 +1,19 @@
 import { useFormik } from 'formik';
-
-import { AddingContactSchema } from 'components/validation';
-
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
-import { addContact } from 'redux/contacts/operations.js';
-import { selectContacts, selectIsLoading } from 'redux/contacts/selectors';
 
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
+import Form from 'components/Common/Form';
 
-import Form from 'components/Common/styled-components/Form';
+import { addContact } from 'redux/contacts/operations.js';
+import { selectContacts } from 'redux/contacts/selectors';
+import { AddingContactSchema } from 'components/validation';
 
 const ContactForm = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
-  const isLoading = useSelector(selectIsLoading);
 
   const onAddingContact = ({ name, phone }) => {
     const isExist = contacts.filter(contact => contact.name === name).length;
@@ -41,10 +37,6 @@ const ContactForm = () => {
     onSubmit: ({ name, phone }) => {
       onAddingContact({ name, phone });
       formik.resetForm();
-    },
-
-    handleSubmit: (values, { setSubmitting }) => {
-      console.log('values :', values);
     },
   });
 
@@ -96,7 +88,6 @@ const ContactForm = () => {
           variant="contained"
           disabled={!(formik.dirty && formik.isValid)}
           type="submit"
-          // loading={isLoading && formik.isValid && formik.dirty}
         >
           Add
         </LoadingButton>
