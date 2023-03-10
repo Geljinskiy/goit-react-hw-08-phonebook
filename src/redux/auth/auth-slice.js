@@ -54,9 +54,6 @@ export const authSlice = createSlice({
       .addCase(fetchUser.fulfilled, (state, action) => {
         state.isLoading = false;
         console.log('need to change this :', action);
-        // if (!action.payload) {
-        //   return;
-        // }
         state.user = action.payload;
         state.isLoggedIn = true;
       }),

@@ -1,6 +1,7 @@
 import { useFormik } from 'formik';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Notify } from 'notiflix';
 
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
@@ -19,7 +20,7 @@ const ContactForm = () => {
     const isExist = contacts.filter(contact => contact.name === name).length;
 
     if (isExist) {
-      alert(`${name} is already in contacts.`);
+      Notify.warning(`${name} is already in contacts.`);
       return;
     }
 

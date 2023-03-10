@@ -29,5 +29,5 @@ export default RegistrationField;
 RegistrationField.propTypes = {
   type: PropTypes.string.isRequired,
   formik: PropTypes.object.isRequired,
-  name: PropTypes.string,
+  name: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
 };

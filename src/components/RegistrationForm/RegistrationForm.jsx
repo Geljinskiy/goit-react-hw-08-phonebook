@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { Notify } from 'notiflix';
 
 import { Container } from '@mui/system';
 import Typography from '@mui/material/Typography';
@@ -34,7 +35,13 @@ const RegistrationForm = ({ authOperation, initialVals, validationSchema }) => {
     validationSchema,
 
     onSubmit: values => {
-      dispatch(authOperation(values));
+      dispatch(authOperation(values)).then(res => {
+        if (res.error) {
+          Notify.failure(
+            `${isItLogin ? 'login' : 'sign up'} failed, try again!`
+          );
+        }
+      });
 
       formik.resetForm();
     },
