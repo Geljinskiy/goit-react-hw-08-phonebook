@@ -26,7 +26,7 @@ export const App = () => {
       <Routes>
         <Route path="/" element={<SharedLayout />}>
           <Route
-            path="/register"
+            index
             element={
               <RestrictedRoute component={SignUp} redirectTo="/contacts" />
             }

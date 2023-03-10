@@ -56,7 +56,7 @@ const SharedLayout = () => {
               <Button
                 component={NavLink}
                 variant="outlined"
-                to="/register"
+                to="/"
               >
                 sign up
               </Button>

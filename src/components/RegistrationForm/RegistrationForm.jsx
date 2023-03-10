@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Notify } from 'notiflix';
+import Notiflix from 'notiflix';
 
 import { Container } from '@mui/system';
 import Typography from '@mui/material/Typography';
@@ -14,12 +14,16 @@ import RegistrationField from 'components/RegistrationField';
 
 import authSelectors from 'redux/auth/auth-selectors';
 
+Notiflix.Notify.init({
+  position: 'right-bottom',
+});
+
 const RegistrationForm = ({ authOperation, initialVals, validationSchema }) => {
   const isItLogin = useLocation().pathname.slice(1) === 'login';
   const isLoading = useSelector(authSelectors.isLoadingAuth);
 
   const regDefect = {
-    reversePath: isItLogin ? `/register` : '/login',
+    reversePath: isItLogin ? `/` : '/login',
     linkMessage: isItLogin
       ? `Don't you have an account yet? Sign up right now!`
       : 'Alreade have an account? Log in.',
@@ -37,7 +41,7 @@ const RegistrationForm = ({ authOperation, initialVals, validationSchema }) => {
     onSubmit: values => {
       dispatch(authOperation(values)).then(res => {
         if (res.error) {
-          Notify.failure(
+          Notiflix.Notify.failure(
             `${isItLogin ? 'login' : 'sign up'} failed, try again!`
           );
         }
